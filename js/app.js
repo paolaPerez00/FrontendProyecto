@@ -173,24 +173,6 @@ const btnAumentarDisminuir = e => {
     e.stopPropagation()
 }
 
-
-async function sendCreate(url, data, meth) {
-    const response = await fetch(url, {
-        method: meth,
-        mode: "cors",
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(data)
-    })
-    return response.json()
-}
-
-
 //POST
 
 function sendBuy(){
@@ -256,15 +238,16 @@ function sendBuy(){
         number: number,
         dateBill: dateBill,
         typePay: typePay,
-        products: [products]
+        products: products
     }
-
-    sendBuy('http://localhost:4000/bill/buy', data, 'POST')
-        .then(data => console.log(data))
+    console.log(data)
+    sendBuy(`http://localhost:4000/bill/buy`, data, 'POST')
+        .then(data => buyB(data))
         .catch(err => console.log(err))
-}
+
 
 async function sendBuy(url, data, meth) {
+    console.log(url)
     const response = await fetch(url, {
         method: meth,
         mode: "cors",
@@ -279,10 +262,21 @@ async function sendBuy(url, data, meth) {
     })
     return response.json()
 }
+}
 
 function buyB(data) {
     if (data.result == 'Success') {
         alert(`Factura ${data.data.number} generada con éxito`)
+        clearfields()
+        carrito = {}
+        pintarCarrito()
     }
 }
 
+function clearfields(){
+
+    document.getElementById('idCustomer').value = ""
+    document.getElementById('number').value = ""
+    document.getElementById('dateBill').value = ""
+    document.getElementById('typePay').value = "Pago"
+}
