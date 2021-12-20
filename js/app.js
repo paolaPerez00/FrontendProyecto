@@ -13,6 +13,7 @@ const fragment = document.createDocumentFragment()
 
 //Creamos el carrito
 let carrito = {}
+let _ids = []
 
 // Eventos
 // El evento DOMContentLoaded es disparado cuando el documento HTML ha sido completamente cargado y parseado
@@ -45,11 +46,18 @@ const fetchData = async () => {
 //Agregar datos del archivo json a un div en html
 const showProduct = products => {
     let html = ""
+    let id = ""
     products.data.map((product) => {
         templateCard.querySelector('h5').textContent = product.idProduct
         templateCard.querySelector('h9').textContent = product.value
         templateCard.querySelector('p').textContent = product.description
         templateCard.querySelector('.btn-dark').dataset.id = product.idProduct 
+
+        const prod = {
+            _id: product._id,
+            idProduct: product.idProduct
+        }
+        _ids.push(prod)
         const clone = templateCard.cloneNode(true)
         fragment.appendChild(clone)
     })
@@ -90,9 +98,9 @@ const pintarCarrito = () => {
     items.innerHTML = ''
 
     Object.values(carrito).forEach(producto => {
-        templateCarrito.querySelector('th').textContent = producto.idProduct
-        templateCarrito.querySelectorAll('td')[0].textContent = producto.description
-        templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
+        templateCarrito.querySelectorAll('td')[0].textContent = producto.idProduct
+        templateCarrito.querySelectorAll('td')[1].textContent = producto.description
+        templateCarrito.querySelectorAll('td')[2].textContent = producto.cantidad
         templateCarrito.querySelector('span').textContent = producto.precio * producto.cantidad     
         //botones
         templateCarrito.querySelector('.btn-info').dataset.id = producto.idProduct
@@ -191,8 +199,6 @@ function sendBuy(){
     let dateBill = document.getElementById('dateBill').value
     let typePay = document.getElementById('typePay').value
 
-    console.log (typePay)
-
     if (idCustomer == '' || idCustomer == undefined) {
         alert("Ingrese el id del cliente")
         document.getElementById('idCustomer').focus()
@@ -215,93 +221,50 @@ function sendBuy(){
         document.getElementById('typePay').focus()
         return
     }
-
+    let prodTable = []
     
+   const tBody =  document.getElementById('items').children
+   var producto = ""
+    for (let i = 0; i < tBody.length; i++) {
+        let celda = tBody[i].getElementsByTagName('td')
+       for (let j = 0; j < celda.length; j++) {
+            producto = {
+                id : celda[0].innerText,
+                cant: celda[2].innerText
+            }
+          
+        }
+        prodTable.push(producto)
+    }
+
+    let products = []
+    let ref =""
+    for (let i = 0; i < prodTable.length; i++) {
+       for (let j = 0; j < _ids.length; j++) {
+           if(prodTable[i].id == _ids[j].idProduct){
+                ref ={
+                    _id : _ids[j]._id,
+                    cant:  prodTable[i].cant
+                }
+           }
+        }
+        products.push(ref)
+    }
 
     const data = {
         idCustomer: idCustomer,
         number: number,
         dateBill: dateBill,
-        typePay: typePay
+        typePay: typePay,
+        products: [products]
     }
 
-    console.log(data)
-
-   /* sendCreate('http://localhost:4000/prod', data, 'POST')
-        .then(data => create(data))
-        .catch(err => console.log(err))*/
-}
-/*
-const btnBuy = document.getElementById('buy-product')
-btnBuy.addEventListener('click', () => {
-    //evento.preventDefault();
-    let idCustomer = document.getElementById('idCustomer').value
-    let number = document.getElementById('number').value
-    let dateBill = document.getElementById('dateBill').value
-    let typePay = document.getElementById('typePay').value
-
-    console.log (typePay)
-
-    if (idProd == '' || idProd == undefined) {
-        alert("Ingrese el id del producto")
-        document.getElementById('idProduct').focus()
-        return
-    }
-
-    if (typeProd != 'Seleccione el tipo de producto') {
-        types.forEach(element => {
-            if (element.id == typeProd) {
-                typeProd = element.type
-            }
-        });
-    } else {
-        alert("Elija el tipo de producto")
-        document.getElementById('typeProduct').focus()
-        return
-    }
-
-    if (stockP == '' || stockP == undefined) {
-        alert("Ingrese el stock del producto")
-        document.getElementById('stock').focus()
-        return
-    } else if (stockP < 5) {
-        alert("El stock debe ser mayor a 5")
-        document.getElementById('stock').focus()
-        return
-    }
-
-    if (valueP == '' || valueP == undefined) {
-        alert("Ingrese el valor del producto")
-        document.getElementById('value').focus()
-        return
-    }
-
-    if (dateExpiredP == '' || dateExpiredP == undefined) {
-        alert("Ingrese la fecha de vencimiento del producto")
-        document.getElementById('dateExpired').focus()
-        return
-    }
-    if (descriptionP == '' || descriptionP == undefined) {
-        alert("Ingrese la descripción del producto")
-        document.getElementById('description').focus()
-        return
-    }
-
-    const data = {
-        idProduct: idProd,
-        description: descriptionP,
-        value: valueP,
-        stock: stockP,
-        typeProduct: typeProd,
-        dateExpired: dateExpiredP
-    }
-
-   sendCreate('http://localhost:4000/prod', data, 'POST')
-        .then(data => create(data))
+    sendBuy('http://localhost:4000/bill/buy', data, 'POST')
+        .then(data => console.log(data))
         .catch(err => console.log(err))
-})
-*/
-async function sendCreate(url, data, meth) {
+}
+
+async function sendBuy(url, data, meth) {
     const response = await fetch(url, {
         method: meth,
         mode: "cors",
@@ -317,11 +280,9 @@ async function sendCreate(url, data, meth) {
     return response.json()
 }
 
-function create(data) {
+function buyB(data) {
     if (data.result == 'Success') {
-        alert(`Producto ${data.data.idProduct} creado`)
-        clearFields()
-        dataP()
+        alert(`Factura ${data.data.number} generada con éxito`)
     }
 }
 
