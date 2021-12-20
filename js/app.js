@@ -136,6 +136,10 @@ const pintarFooter = () => {
         pintarCarrito()
     })
 
+    const btnBuy  = document.getElementById('buy-product') 
+    btnBuy.addEventListener('click', () => {
+        sendBuy()
+    })
 }
 
 
@@ -177,3 +181,167 @@ async function sendCreate(url, data, meth) {
     })
     return response.json()
 }
+
+
+//POST
+
+function sendBuy(){
+    let idCustomer = document.getElementById('idCustomer').value
+    let number = document.getElementById('number').value
+    let dateBill = document.getElementById('dateBill').value
+    let typePay = document.getElementById('typePay').value
+
+    console.log (typePay)
+
+    if (idProd == '' || idProd == undefined) {
+        alert("Ingrese el id del producto")
+        document.getElementById('idProduct').focus()
+        return
+    }
+
+    if (typeProd != 'Seleccione el tipo de producto') {
+        types.forEach(element => {
+            if (element.id == typeProd) {
+                typeProd = element.type
+            }
+        });
+    } else {
+        alert("Elija el tipo de producto")
+        document.getElementById('typeProduct').focus()
+        return
+    }
+
+    if (stockP == '' || stockP == undefined) {
+        alert("Ingrese el stock del producto")
+        document.getElementById('stock').focus()
+        return
+    } else if (stockP < 5) {
+        alert("El stock debe ser mayor a 5")
+        document.getElementById('stock').focus()
+        return
+    }
+
+    if (valueP == '' || valueP == undefined) {
+        alert("Ingrese el valor del producto")
+        document.getElementById('value').focus()
+        return
+    }
+
+    if (dateExpiredP == '' || dateExpiredP == undefined) {
+        alert("Ingrese la fecha de vencimiento del producto")
+        document.getElementById('dateExpired').focus()
+        return
+    }
+    if (descriptionP == '' || descriptionP == undefined) {
+        alert("Ingrese la descripción del producto")
+        document.getElementById('description').focus()
+        return
+    }
+
+    const data = {
+        idProduct: idProd,
+        description: descriptionP,
+        value: valueP,
+        stock: stockP,
+        typeProduct: typeProd,
+        dateExpired: dateExpiredP
+    }
+
+   /* sendCreate('http://localhost:4000/prod', data, 'POST')
+        .then(data => create(data))
+        .catch(err => console.log(err))*/
+}
+/*
+const btnBuy = document.getElementById('buy-product')
+btnBuy.addEventListener('click', () => {
+    //evento.preventDefault();
+    let idCustomer = document.getElementById('idCustomer').value
+    let number = document.getElementById('number').value
+    let dateBill = document.getElementById('dateBill').value
+    let typePay = document.getElementById('typePay').value
+
+    console.log (typePay)
+
+    if (idProd == '' || idProd == undefined) {
+        alert("Ingrese el id del producto")
+        document.getElementById('idProduct').focus()
+        return
+    }
+
+    if (typeProd != 'Seleccione el tipo de producto') {
+        types.forEach(element => {
+            if (element.id == typeProd) {
+                typeProd = element.type
+            }
+        });
+    } else {
+        alert("Elija el tipo de producto")
+        document.getElementById('typeProduct').focus()
+        return
+    }
+
+    if (stockP == '' || stockP == undefined) {
+        alert("Ingrese el stock del producto")
+        document.getElementById('stock').focus()
+        return
+    } else if (stockP < 5) {
+        alert("El stock debe ser mayor a 5")
+        document.getElementById('stock').focus()
+        return
+    }
+
+    if (valueP == '' || valueP == undefined) {
+        alert("Ingrese el valor del producto")
+        document.getElementById('value').focus()
+        return
+    }
+
+    if (dateExpiredP == '' || dateExpiredP == undefined) {
+        alert("Ingrese la fecha de vencimiento del producto")
+        document.getElementById('dateExpired').focus()
+        return
+    }
+    if (descriptionP == '' || descriptionP == undefined) {
+        alert("Ingrese la descripción del producto")
+        document.getElementById('description').focus()
+        return
+    }
+
+    const data = {
+        idProduct: idProd,
+        description: descriptionP,
+        value: valueP,
+        stock: stockP,
+        typeProduct: typeProd,
+        dateExpired: dateExpiredP
+    }
+
+   sendCreate('http://localhost:4000/prod', data, 'POST')
+        .then(data => create(data))
+        .catch(err => console.log(err))
+})
+*/
+async function sendCreate(url, data, meth) {
+    const response = await fetch(url, {
+        method: meth,
+        mode: "cors",
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    })
+    return response.json()
+}
+
+function create(data) {
+    if (data.result == 'Success') {
+        alert(`Producto ${data.data.idProduct} creado`)
+        clearFields()
+        dataP()
+    }
+}
+

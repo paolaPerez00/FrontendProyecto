@@ -95,11 +95,11 @@
 
         <div>
 
-          <label for="tipo"> <b style="color: rgb(0, 0, 0);">Pagar : </b></label>
-          <select id="typeProduct" class="form-select" name="typeProduct" required>
+          <label for="typePay"> <b style="color: rgb(0, 0, 0);">Pagar : </b></label>
+          <select id="typePay" class="form-select" name="typePay" required>
             <option>Pago</option>
-            <option value="1">Si</option>
-            <option value="2">No</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
           </select>
 
         </div>
@@ -118,7 +118,7 @@
       <button class="btn btn-danger btn-sm" id="vaciar-carrito">
         Vaciar todo
       </button>
-      <button class="btn btn-success btn-sm" id="vaciar-carrito">
+      <button  type="button" class="btn btn-success btn-sm" id="buy-product">
         Confirmar compra
       </button>
     </td>
@@ -228,7 +228,7 @@
       <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
   </footer>
-  <script src="/Frontend/js/app.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 
 </html>
