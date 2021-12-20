@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <title>Registro proveedor</title>
+</head>
+
+<body class="m-2 row justify-content-right ">
+
+    <header>
+        <nav class="navbar navbar-light" >
+            <nav style="width: 1550px;" class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/Frontend/index.html"><b>Home</b></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link" href="/Frontend/Cliente.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b>Clientes</b>
+                          </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="/Frontend/Proveedor.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <b>Proveedores</b>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="/Frontend/Product.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <b>Productos</b>
+                            </a>
+                        </li>
+    
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#"><b>Contactanos</b></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>    
+        </nav>  
+    </header>
+        <br>
+ <section>  
+    <div class="container" style="width: 800px;">
+        <div class="card" >
+            <div class="alert alert-secondary" role="alert">
+                <h2 class="alert-heading" style="text-align: center;">R E G I S T R O - D E - P R O V E E D O R E S!</h2>
+                <p style="text-align: center;">Aquí podra tener detalladamente un buen control para el registro de los proveedores.</p>
+                <hr>
+                <p style="text-align: center;" class="mb-0">Información del Proveedor.</p>
+            </div>
+        <div class="card-body">
+                    
+        <form id="frm" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="nit"> <b style="color: rgb(0, 0, 0);">NIT</b></label>
+                    <input type="text" class="form-control" placeholder="569889391" name="nit"
+                        id="nit" pattern="[0-9][A-Za-z]+" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name"> <b style="color: rgb(0, 0, 0);">Nombre provedor</b></label>
+                    <input type="text" class="form-control" placeholder="Alpina" name="name"
+                        id="name" pattern="[A-Za-z]+" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="phone"> <b style="color: rgb(0, 0, 0);">Teléfono</b></label>
+                    <input type="text" class="form-control" placeholder="322801989" name="phone"
+                        id="phone" pattern="[0-9]+" required>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="address"> <b style="color: rgb(0, 0, 0);">Dirección</b></label>
+                    <input type="text" class="form-control" placeholder="Calle 30 N° 12-21" name="address"
+                        id="address" pattern="[A-Za-z][0-9]+" required>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-4 d-grid gap">
+                    <button type="button" id="create" class="btn btn-outline-dark">Crear</button>
+                </div>
+                <div class="col-4 d-grid gap">
+                    <button type="button" id="modificar" class="btn btn-outline-dark">Modificar</button> 
+                </div>
+                <div class="col-4 d-grid gap">
+                    <button type="button" id="actualizar" class="btn btn-outline-dark">Actualizar</button>
+                </div>
+            </div>
+    </form>
+
+</section> 
+
+
+<div class="col-10 mb-3" style="margin-left: 80px;">
+    <br>
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">NIT</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Opción</th>     
+                </tr>
+            </thead>
+            <tbody id="contenido">
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+    <footer class="text-center text-lg-start text-dark" style="background-color: #ECEFF1">
+        <div>
+            <a href="" class="text-white me-4">
+             <i class="fab fa-facebook-f"></i>
+            </a>
+                  
+            <a href="" class="text-white me-4">
+                <i class="fab fa-twitter"></i>
+            </a>
+        
+            <a href="" class="text-white me-4">
+                <i class="fab fa-google"></i>
+            </a>
+                  
+            <a href="" class="text-white me-4">
+                <i class="fab fa-instagram"></i>
+            </a>
+                  
+            <a href="" class="text-white me-4">
+                <i class="fab fa-linkedin"></i>
+            </a>
+                  
+            <a href="" class="text-white me-4">
+                <i class="fab fa-github"></i>
+            </a>
+                
+        </div>
+        
+        </section>
+ 
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                <div class="row mt-3">
+                   
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                      <!-- Content -->
+                    <h6 class="text-uppercase fw-bold">Company name</h6>
+                    <hr
+                          class="mb-4 mt-0 d-inline-block mx-auto"
+                          style="width: 60px; background-color: #7c4dff; height: 2px"
+                          />
+                    <p>
+                        Here you can use rows and columns to organize your footer
+                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit.
+                    </p>
+                </div>
+                
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                     
+                    <h6 class="text-uppercase fw-bold">Products</h6>
+                    <hr
+                          class="mb-4 mt-0 d-inline-block mx-auto"
+                          style="width: 60px; background-color: #7c4dff; height: 2px"
+                          />
+                      <p>
+                        <a href="#!" class="text-dark">MDBootstrap</a>
+                      </p>
+                      <p>
+                        <a href="#!" class="text-dark">MDWordPress</a>
+                      </p>
+                      <p>
+                        <a href="#!" class="text-dark">BrandFlow</a>
+                      </p>
+                      <p>
+                        <a href="#!" class="text-dark">Bootstrap Angular</a>
+                      </p>
+                </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                      <!-- Links -->
+                      <h6 class="text-uppercase fw-bold">Useful links</h6>
+                      <hr
+                          class="mb-4 mt-0 d-inline-block mx-auto"
+                          style="width: 60px; background-color: #7c4dff; height: 2px"
+                          />
+                      <p>
+                        <a href="#!" class="text-dark">Your Account</a>
+                      </p>
+                      <p>
+                        <a href="#!" class="text-dark">Become an Affiliate</a>
+                      </p>
+                      <p>
+                        <a href="#!" class="text-dark">Shipping Rates</a>
+                      </p>
+                      <p>
+                        <a href="#!" class="text-dark">Help</a>
+                      </p>
+                    </div>
+                    <!-- Grid column -->
+          
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                      <!-- Links -->
+                      <h6 class="text-uppercase fw-bold">Contact</h6>
+                      <hr
+                          class="mb-4 mt-0 d-inline-block mx-auto"
+                          style="width: 60px; background-color: #7c4dff; height: 2px"
+                          />
+                      <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                      <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                      <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                      <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+                </div>
+              </section>
+              <!-- Section: Links  -->
+          
+              <!-- Copyright -->
+              <div
+                   class="text-center p-3"
+                   style="background-color: rgba(0, 0, 0, 0.2)"
+                   >
+                © 2020 Copyright:
+                <a class="text-dark" href="https://mdbootstrap.com/"
+                   >MDBootstrap.com</a
+                  >
+              </div>
+    </footer>
+    <script src="./js/proveedor.js"></script>
+</body>
+
+</html>
