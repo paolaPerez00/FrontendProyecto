@@ -193,59 +193,39 @@ function sendBuy(){
 
     console.log (typePay)
 
-    if (idProd == '' || idProd == undefined) {
-        alert("Ingrese el id del producto")
-        document.getElementById('idProduct').focus()
+    if (idCustomer == '' || idCustomer == undefined) {
+        alert("Ingrese el id del cliente")
+        document.getElementById('idCustomer').focus()
         return
     }
 
-    if (typeProd != 'Seleccione el tipo de producto') {
-        types.forEach(element => {
-            if (element.id == typeProd) {
-                typeProd = element.type
-            }
-        });
-    } else {
-        alert("Elija el tipo de producto")
-        document.getElementById('typeProduct').focus()
+    if (number == '' || number == undefined) {
+        alert("Ingrese el número de la factura")
+        document.getElementById('number').focus()
+        return
+    } 
+    if (dateBill == '' || dateBill == undefined) {
+        alert("Ingrese la fecha de fcaturación")
+        document.getElementById('dateBill').focus()
         return
     }
 
-    if (stockP == '' || stockP == undefined) {
-        alert("Ingrese el stock del producto")
-        document.getElementById('stock').focus()
-        return
-    } else if (stockP < 5) {
-        alert("El stock debe ser mayor a 5")
-        document.getElementById('stock').focus()
+    if (typePay == 'Pago') {
+        alert("Seleccione si desea pagar")
+        document.getElementById('typePay').focus()
         return
     }
 
-    if (valueP == '' || valueP == undefined) {
-        alert("Ingrese el valor del producto")
-        document.getElementById('value').focus()
-        return
-    }
-
-    if (dateExpiredP == '' || dateExpiredP == undefined) {
-        alert("Ingrese la fecha de vencimiento del producto")
-        document.getElementById('dateExpired').focus()
-        return
-    }
-    if (descriptionP == '' || descriptionP == undefined) {
-        alert("Ingrese la descripción del producto")
-        document.getElementById('description').focus()
-        return
-    }
+    
 
     const data = {
-        idProduct: idProd,
-        description: descriptionP,
-        value: valueP,
-        stock: stockP,
-        typeProduct: typeProd,
-        dateExpired: dateExpiredP
+        idCustomer: idCustomer,
+        number: number,
+        dateBill: dateBill,
+        typePay: typePay
     }
+
+    console.log(data)
 
    /* sendCreate('http://localhost:4000/prod', data, 'POST')
         .then(data => create(data))
